@@ -169,6 +169,22 @@ class Week(namedtuple('Week', ('year', 'week'))):
         if isinstance(other, (int, long, timedelta)):
             return self.__add__(-other)
         return self.toordinal() - other.toordinal()
+    
+    def __iter__(self):
+        """Defines the day iterator, starting at 0 -- the first day of
+        the week."""
+        self.__class__.n = 0
+        self.__class__.iteration_ceiling = 6
+        return self
+    
+    def __next__(self):
+        """Returns next iteration day of week using the day() method."""
+        if self.__class__.n <= self.__class__.iteration_ceiling:
+            iteration_day = self.day(self.n)
+            self.__class__.n += 1
+            return iteration_day
+        else:
+            raise StopIteration
 
 Week.min = Week(1,1)
 Week.max = Week(9999,52)

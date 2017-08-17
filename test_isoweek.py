@@ -1,5 +1,6 @@
 import sys
 import unittest
+import datetime
 from isoweek import Week
 
 class TestWeek(unittest.TestCase):
@@ -144,6 +145,14 @@ class TestWeek(unittest.TestCase):
         next_week = w + 1
         self.assertEqual(str(next_week),   "2011W21")
         self.assertTrue(isinstance(next_week, MyWeek))
+    
+    def test_iterator(self):
+        w = Week(2011, 20)
+        for day in w:
+            self.assertIsInstance(day, datetime.date)
+        
+        for i, day in enumerate(w):
+            self.assertEqual(day, w.day(i))
 
 if __name__ == '__main__':
     unittest.main()
