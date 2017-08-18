@@ -189,7 +189,7 @@ class Week(namedtuple('Week', ('year', 'week'))):
     def next(self):
         """Python 2 compatibility for the __next__ method for
         creating an iterator."""
-        return self.__class__.__next__()
+        return self.__next__()
 
 
 Week.min = Week(1,1)
